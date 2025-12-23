@@ -13,11 +13,18 @@ STOP_CUSTOM = {'iya', 'yaa', 'loh', 'sih', 'nya', 'ga', 'ya'}
 STOPWORDS_ALL = STOP_ID | STOP_EN | STOP_CUSTOM
 
 def load_slangwords(csv_path):
-    if not os.path.exists(csv_path):
-        raise FileNotFoundError("File slangword CSV tidak ditemukan")
+    slang_df = pd.read_csv(csv_path)
 
-    df = pd.read_csv(csv_path)
-    return dict(zip(df['slang'], df['formal']))
+    # Validasi kolom wajib
+    required_cols = {'@', 'di'}
+    if not required_cols.issubset(slang_df.columns):
+        raise ValueError(f"Kolom slangword tidak sesuai. Ditemukan: {slang_df.columns}")
+
+    slang_df = slang_df[['@', 'di']].dropna()
+    slang_df['@'] = slang_df['@'].astype(str)
+    slang_df['di'] = slang_df['di'].astype(str)
+
+    return dict(zip(slang_df['@'], slang_df['di']))
 
 
 SLANGWORDS = load_slangwords("preprocessing/indonesian-slangwords.csv")
