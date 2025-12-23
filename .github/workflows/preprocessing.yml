@@ -32,3 +32,14 @@ jobs:
         with:
           name: preprocessing_kredivo
           path: preprocessing/preprocessing_kredivo/
+
+      - name: Commit processed dataset
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add preprocessing/namadataset_preprocessing/
+          git commit -m "Update preprocessed dataset [auto]" || echo "No changes"
+          git push
+
+
+
