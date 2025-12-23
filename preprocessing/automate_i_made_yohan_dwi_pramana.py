@@ -20,7 +20,7 @@ def load_slangwords(csv_path):
     return dict(zip(df['slang'], df['formal']))
 
 
-SLANGWORDS = load_slangwords("preprocessing/indonesian_slangwords.csv")
+SLANGWORDS = load_slangwords("preprocessing/indonesian-slangwords.csv")
 
 
 def cleaning_text(text):
