@@ -71,33 +71,17 @@ def preprocess_dataframe(df, text_column='content'):
     return df
 
 
-def preprocess_folder(input_dir, output_dir, text_column='content'):
-    if not os.path.exists(input_dir):
-        raise FileNotFoundError("Folder input tidak ditemukan")
-
-    os.makedirs(output_dir, exist_ok=True)
-
-    csv_files = [f for f in os.listdir(input_dir) if f.endswith('.csv')]
-
-    if not csv_files:
-        raise ValueError("Tidak ada file CSV di folder input")
-
-    for file in csv_files:
-        input_path = os.path.join(input_dir, file)
-        output_path = os.path.join(
-            output_dir,
-            file.replace('.csv', '_preprocessed.csv')
-        )
-
-        df = pd.read_csv(input_path)
-        df_clean = preprocess_dataframe(df, text_column)
-        df_clean.to_csv(output_path, index=False)
-
-        print(f"[OK] {file} → {output_path}")
-
-if __name__ == "__main__":
-    preprocess_folder(
-        input_dir="Kredivo",
-        output_dir="preprocessed_kredivo",
-        text_column="content"
-    )
+def preprocess_csv(input_path, output_path): 
+if not os.path.exists(input_path): 
+    raise FileNotFoundError("File input tidak ditemukan") 
+    
+    os.makedirs(os.path.dirname(output_path), exist_ok=True) 
+    df = pd.read_csv(input_path) 
+    df_clean = preprocess_dataframe(df) 
+    df_clean.to_csv(output_path, index=False) 
+    return df_clean 
+    
+    if __name__ == "__main__": 
+        preprocess_csv( 
+            input_path='Kredivo.csv', 
+            output_path='preprocessing/preprocessed_kredivo.csv' )
