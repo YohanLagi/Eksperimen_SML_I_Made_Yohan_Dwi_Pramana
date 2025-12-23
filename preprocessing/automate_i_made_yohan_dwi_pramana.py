@@ -74,5 +74,5 @@ def preprocess_csv(input_path, output_path):
 if __name__ == "__main__":
     preprocess_csv(
         input_path='Kredivo.csv',
-        output_path='preprocessed_kredivo.csv'
+        output_path='preprocessing/preprocessed_kredivo.csv'
     )
