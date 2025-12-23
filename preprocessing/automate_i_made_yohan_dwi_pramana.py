@@ -72,8 +72,8 @@ def preprocess_dataframe(df, text_column='content'):
 
 
 def preprocess_csv(input_path, output_path): 
-if not os.path.exists(input_path): 
-    raise FileNotFoundError("File input tidak ditemukan") 
+    if not os.path.exists(input_path): 
+        raise FileNotFoundError("File input tidak ditemukan") 
     
     os.makedirs(os.path.dirname(output_path), exist_ok=True) 
     df = pd.read_csv(input_path) 
